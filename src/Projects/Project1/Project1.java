@@ -63,6 +63,7 @@ public class Project1 {
         } catch (Exception e) {
             promptForFileName();
         }
+        return null;
     }
 
     /**
@@ -97,6 +98,7 @@ public class Project1 {
      * @return Maximum height value
      */
     public int findTallest(String[][] db) {
+        return 0;
     }
 
     /**
@@ -106,6 +108,7 @@ public class Project1 {
      * @return Smallest weight value
      */
     public String[] findLightestRecord(String[][] db) {
+        return null;
     }
 
     /**
@@ -117,7 +120,7 @@ public class Project1 {
      * @return The average height for the given range or 0 if no
      * records match the filter criteria
      */
-    public double findAvgHeightByAgeRange(String[][] db, int lowerBound, int
-            upperBound) {
+    public double findAvgHeightByAgeRange(String[][] db, int lowerBound, int upperBound) {
+        return 0.0;
     }
 }
