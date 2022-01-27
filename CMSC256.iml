@@ -17,5 +17,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="bridges-java-3.3.0" level="project" />
   </component>
 </module>

@@ -4,6 +4,7 @@ package cmsc256;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -20,6 +21,22 @@ public class Project1 {
         // What is tallest height?
         // Which row has the lowest weight?
         // Calculate average height of 20-30 year age range in the data.
+        Project1 p1 = new Project1();
+        File testFile;
+        String[][] testArray = new String[500][3];
+        try {
+            testFile = p1.getFile(p1.checkArgs(args));
+        } catch (FileNotFoundException e) {
+            testFile = new File(p1.promptForFileName());
+        }
+        try {
+            testArray = p1.readFile(testFile,500);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Tallest Height: " + p1.findTallest(testArray));
+        System.out.println("Row with lowest weight: " + Arrays.toString(p1.findLightestRecord(testArray)));
+        System.out.println("Average height for 20-30 year olds: " + p1.findAvgHeightByAgeRange(testArray,20,30));
     }
 
     /**
@@ -31,11 +48,10 @@ public class Project1 {
      */
     public String checkArgs(String[] argv) {
         if (argv.length < 1) {
-            promptForFileName();
+            return promptForFileName();
         } else {
             return argv[0];
         }
-        return null;
     }
 
     /**
@@ -58,12 +74,7 @@ public class Project1 {
      * @throws java.io.FileNotFoundException
      */
     public File getFile(String fileName) throws FileNotFoundException {
-        try {
-            return new File(fileName);
-        } catch (Exception e) {
-            promptForFileName();
-        }
-        return null;
+        return new File(fileName);
     }
 
     /**
@@ -79,7 +90,7 @@ public class Project1 {
         Scanner in = new Scanner(file);
         String[][] returnArray = new String[numRecords][3];
         int row = 0;
-        while (numRecords != 0) {
+        while (numRecords >= 1) {
             String[] temp = in.nextLine().split(",");
             for (int col = 0; col < temp.length; col++) {
                 returnArray[row][col] = temp[col];
@@ -98,7 +109,14 @@ public class Project1 {
      * @return Maximum height value
      */
     public int findTallest(String[][] db) {
-        return 0;
+        final int heightIndex = 1;
+        int max = 0;
+        for (int i = 1; i < db.length - 1; i++) {
+            if (Integer.parseInt(db[i][heightIndex]) > max) {
+                max = Integer.parseInt(db[i][heightIndex]);
+            }
+        }
+        return max;
     }
 
     /**
@@ -108,7 +126,16 @@ public class Project1 {
      * @return Smallest weight value
      */
     public String[] findLightestRecord(String[][] db) {
-        return null;
+        final int weightIndex = 2;
+        int rowIndex = 1;
+        String min = db[1][2];
+        for (int i = 1; i < db.length - 1; i++) {
+            if (Integer.parseInt(db[i][weightIndex]) < Integer.parseInt(min)) {
+                min = db[i][weightIndex];
+                rowIndex = i;
+            }
+        }
+        return db[rowIndex];
     }
 
     /**
@@ -121,6 +148,19 @@ public class Project1 {
      * records match the filter criteria
      */
     public double findAvgHeightByAgeRange(String[][] db, int lowerBound, int upperBound) {
-        return 0.0;
+        double sum = 0;
+        double numElements = 0;
+        final int heightIndex = 1;
+        for (int i = 1; i < db.length - 1; i++) {
+            if (Integer.parseInt(db[i][0]) >= lowerBound && Integer.parseInt(db[i][0]) <= upperBound) {
+                sum += Double.parseDouble(db[i][heightIndex]);
+                numElements++;
+            }
+        }
+        if (sum == 0 || numElements == 0) {
+            return 0;
+        } else {
+            return sum / numElements;
+        }
     }
 }
