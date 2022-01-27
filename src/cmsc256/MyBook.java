@@ -1,4 +1,3 @@
-//package Labs.cmsc256_lab02;
 package cmsc256;
 
 public class MyBook implements Comparable<MyBook> {

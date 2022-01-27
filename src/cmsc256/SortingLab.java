@@ -1,4 +1,3 @@
-//package Labs.cmsc256_lab03;
 package cmsc256;
 
 import bridges.connect.Bridges;
@@ -24,6 +23,14 @@ public class SortingLab {
             System.out.println("" + i + ".  " + entry.getActor() + " was in " + entry.getMovie());
         }
 
+        int numActors = 0;
+        for (ActorMovieIMDB A : movieData) {
+            if (A.getMovie().equals("Being_John_Malkovich_(1999)")) {
+                System.out.println(A.getActor());
+                numActors++;
+            }
+        }
+        System.out.println(numActors);
 
     }
 }

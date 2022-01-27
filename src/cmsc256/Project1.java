@@ -1,4 +1,3 @@
-//package Projects.Project1;  // do not remove or comment out this statement
 package cmsc256;
 
 import java.io.File;
