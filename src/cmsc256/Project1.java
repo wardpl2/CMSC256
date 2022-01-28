@@ -10,6 +10,8 @@ import java.util.Scanner;
  *  CMSC 256
  *  Project 1
  *  Ward, Preston
+ *
+ *  Project 1 reads a csv file from the CL and creates a 2D String array which can be manipulated to calculate data
  */
 // place any import statements here
 public class Project1 {
@@ -29,7 +31,7 @@ public class Project1 {
             testFile = new File(p1.promptForFileName());
         }
         try {
-            testArray = p1.readFile(testFile,500);
+            testArray = p1.readFile(testFile,1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -89,7 +91,8 @@ public class Project1 {
         Scanner in = new Scanner(file);
         String[][] returnArray = new String[numRecords][3];
         int row = 0;
-        while (numRecords >= 1) {
+        in.nextLine();
+        while (in.hasNextLine() && numRecords > 0) {
             String[] temp = in.nextLine().split(",");
             for (int col = 0; col < temp.length; col++) {
                 returnArray[row][col] = temp[col];
@@ -97,6 +100,13 @@ public class Project1 {
             row++;
             numRecords--;
         }
+        in.close();
+//        for (int i = 0; i < numRecords + 1; i++) {
+//            String[] temp = in.nextLine().split(",");
+//            returnArray[i][0] = temp[0];
+//            returnArray[i][1] = temp[1];
+//            returnArray[i][2] = temp[2];
+//        }
         return returnArray;
     }
 
@@ -110,7 +120,7 @@ public class Project1 {
     public int findTallest(String[][] db) {
         final int heightIndex = 1;
         int max = 0;
-        for (int i = 1; i < db.length - 1; i++) {
+        for (int i = 0; i < db.length; i++) {
             if (Integer.parseInt(db[i][heightIndex]) > max) {
                 max = Integer.parseInt(db[i][heightIndex]);
             }
@@ -127,11 +137,16 @@ public class Project1 {
     public String[] findLightestRecord(String[][] db) {
         final int weightIndex = 2;
         int rowIndex = 1;
-        String min = db[1][2];
-        for (int i = 1; i < db.length - 1; i++) {
-            if (Integer.parseInt(db[i][weightIndex]) < Integer.parseInt(min)) {
-                min = db[i][weightIndex];
-                rowIndex = i;
+        String min = db[0][2];
+
+        if (db.length == 1) {
+            return db[0];
+        } else {
+            for (int i = 0; i < db.length; i++) {
+                if (Integer.parseInt(db[i][weightIndex]) < Integer.parseInt(min)) {
+                    min = db[i][weightIndex];
+                    rowIndex = i;
+                }
             }
         }
         return db[rowIndex];
@@ -150,7 +165,7 @@ public class Project1 {
         double sum = 0;
         double numElements = 0;
         final int heightIndex = 1;
-        for (int i = 1; i < db.length - 1; i++) {
+        for (int i = 0; i < db.length; i++) {
             if (Integer.parseInt(db[i][0]) >= lowerBound && Integer.parseInt(db[i][0]) <= upperBound) {
                 sum += Double.parseDouble(db[i][heightIndex]);
                 numElements++;
