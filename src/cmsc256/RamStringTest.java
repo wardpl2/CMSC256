@@ -48,7 +48,7 @@ public class RamStringTest {
     public void getEvenCharacters2() {
         RamString lotsOfSpaces = new RamString("This is a string with a lot of spaces");
 //        String evenString = lotsOfSpaces.getEvenCharacters();
-        assertTrue("his  tigwt  o fsae".equals(lotsOfSpaces.getEvenCharacters()));
+        assertTrue("hsi  tigwt  o fsae".equals(lotsOfSpaces.getEvenCharacters()));
     }
     @Test
     public void getEvenCharacters3() {
@@ -67,6 +67,33 @@ public class RamStringTest {
         RamString lessThanTwo = new RamString("a");
 //        String evenString = lessThanTwo.getEvenCharacters();
         assertTrue("".equals(lessThanTwo.getEvenCharacters()));
+    }
+
+
+    @Test
+    public void getOddCharacters() {
+        RamString regularString = new RamString("Test String");
+        assertTrue("Ts tig".equals(regularString.getOddCharacters()));
+    }
+    @Test
+    public void getOddCharacters2() {
+        RamString lotsOfSpaces = new RamString("This is a string with a lot of spaces");
+        assertTrue("Ti sasrn ihalto pcs".equals(lotsOfSpaces.getOddCharacters()));
+    }
+    @Test
+    public void getOddCharacters3() {
+        RamString onlySpaces = new RamString("             ");//13 spaces
+        assertTrue("       ".equals(onlySpaces.getOddCharacters()));
+    }
+    @Test
+    public void getOddCharacters4() {
+        RamString emptyString = new RamString("");
+        assertTrue("".equals(emptyString.getOddCharacters()));
+    }
+    @Test
+    public void getOddCharacters5() {
+        RamString lessThanTwo = new RamString("a");
+        assertTrue("a".equals(lessThanTwo.getOddCharacters()));
     }
 
 
@@ -93,6 +120,51 @@ public class RamStringTest {
         RamString spaceSeparatedPairs = new RamString("00 00 00 00");
 //        int numDoubles = spaceSeparatedPairs.countDoubleDigits();
         assertTrue(4 == spaceSeparatedPairs.countDoubleDigits());
+    }
+
+
+    @Test
+    public void countVowels() {
+        RamString regularString = new RamString("Test String");
+        assertTrue(2 == regularString.countVowels());
+    }
+    @Test
+    public void countVowels2() {
+        RamString noVowels = new RamString("Brr");
+        assertTrue(0 == noVowels.countVowels());
+
+    }
+    @Test
+    public void countVowels3() {
+        RamString lotsOfVowels = new RamString("This is a string with a lot of vowels");
+        assertTrue(10 == lotsOfVowels.countVowels());
+    }
+    @Test
+    public void countVowels4() {
+        RamString emptyString = new RamString("");
+        assertTrue(0 == emptyString.countVowels());
+    }
+
+
+    @Test
+    public void reformatName() {
+        RamString regularString = new RamString("Test String");
+        assertTrue("String, Test".equals(regularString.reformatName()));
+    }
+    @Test(expected = UnsupportedOperationException.class)
+    public void reformatName2() {
+        RamString singleWord = new RamString("Preston");
+        assertTrue("".equals(singleWord.reformatName()));
+    }
+    @Test
+    public void reformatName3() {
+        RamString moreThanTwo = new RamString("Name with more than two words");
+        assertTrue("with more than two words, Name".equals(moreThanTwo.reformatName()));
+    }
+    @Test(expected = UnsupportedOperationException.class)
+    public void reformatName4() {
+        RamString emptyString = new RamString("");
+        assertTrue("".equals(emptyString.reformatName()));
     }
 
 
@@ -134,4 +206,6 @@ public class RamStringTest {
         numberString.convertDigitsToRomanNumeralsInSubstring(1,10);
         assertTrue("IIIIIIIVVVIVIIVIIIIX0".equals(numberString));
     }
+
+
 }
