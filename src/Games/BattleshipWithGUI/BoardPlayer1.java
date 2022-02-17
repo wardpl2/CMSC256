@@ -417,7 +417,7 @@ public class BoardPlayer1 extends JFrame implements ActionListener{
                                         playerOneGridPanel.getComponentAt(x, y + 45).getBackground() != SHIP
                         ) {
                             for (int i=0;i<2;i++) {
-                                String[] temp = new String[3];
+                                String[] temp = new String[3];      //Just because
                                 playerOneGridPanel.getComponentAt(x,y+(45*i)).setBackground(SHIP);
                                 playerOneGridPanel.getComponentAt(x,y+(45*i)).setName("Patrol Boat");
                                 temp[0] = "Patrol Boat";
