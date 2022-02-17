@@ -65,7 +65,7 @@ public interface WackyStringInterface {
 
 	/**
 	 * Returns the number of characters that are either 'a' 'e' 'i' 'o' 'u' or 'y'
-	 * in the current string regarless of case, 'A' or 'a'.
+	 * in the current string regardless of case, 'A' or 'a'.
 	 *
 	 * @return Number of vowel in the current string
 	 */
