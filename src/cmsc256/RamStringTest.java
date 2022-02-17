@@ -206,6 +206,12 @@ public class RamStringTest {
         numberString.convertDigitsToRomanNumeralsInSubstring(1,10);
         assertTrue("IIIIIIIVVVIVIIVIIIIX0".equals(numberString));
     }
+    @Test(expected = IllegalArgumentException.class)
+    public void convertDigitsToRomanNumeralsInSubstring4() {
+        RamString numberString = new RamString("1234567890");
+        numberString.convertDigitsToRomanNumeralsInSubstring(7,5);
+        assertTrue("IIIIIIIVVVIVIIVIIIIX0".equals(numberString));
+    }
 
 
 }
