@@ -147,7 +147,7 @@ public class RamStringTest {
         RamString moreThanTwo = new RamString("Name with more than two words");
         assertEquals("with more than two words, Name", moreThanTwo.reformatName());
     }
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void reformatName4() {
         RamString emptyString = new RamString("");
         assertEquals("", emptyString.reformatName());
@@ -203,6 +203,12 @@ public class RamStringTest {
         RamString numberString = new RamString("1234567890");
         numberString.convertDigitsToRomanNumeralsInSubstring(1,15);
         assertEquals("IIIIIIIVVVIVIIVIIIIX0", numberString.getWackyString());
+    }
+    @Test
+    public void convertDigitsToRomanNumeralsInSubstring6() {
+        RamString numberString = new RamString("1234567890");
+        numberString.convertDigitsToRomanNumeralsInSubstring(3,3);
+        assertEquals("12III4567890", numberString.getWackyString());
     }
 
 
