@@ -149,7 +149,7 @@ public class RamStringTest {
     }
     @Test
     public void reformatName4() {
-        RamString emptyString = new RamString("");
+        RamString emptyString = new RamString("   ");
         assertEquals("", emptyString.reformatName());
     }
 
