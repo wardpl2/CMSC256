@@ -6,7 +6,7 @@ package cmsc256;
  *  Ward, Preston
  *  2/18/2022
  *
- *  RamString implements an interface and manipulates a String
+ *  RamString implements an interface and manipulates a RamString
  */
 public class RamString implements WackyStringInterface {
 
