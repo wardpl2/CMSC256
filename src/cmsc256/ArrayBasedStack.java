@@ -20,6 +20,7 @@ public class ArrayBasedStack<T> implements StackInterface<T> {
     }
 
     private void expandArray() {
+        //reinitialize data to itself but with twice the length
         data = Arrays.copyOf(data,data.length * 2);
     }
 
@@ -29,27 +30,32 @@ public class ArrayBasedStack<T> implements StackInterface<T> {
 
     @Override
     public void push(T newEntry) {
+        //check if the array is full...
         if (isArrayFull()) {
+            //...and expand it if it is
             expandArray();
         }
+        //increase the topOfStack and then add the newEntry there
         topOfStack++;
         data[topOfStack] = newEntry;
     }
 
     @Override
     public T pop() {
+        //throw an exception if the array is empty
         if (isEmpty()) {
             throw new EmptyStackException("Array is empty.");
         } else {
-            T temp = data[topOfStack];
-            data[topOfStack] = null;
-            topOfStack--;
-            return temp;
+            T temp = data[topOfStack]; //save the current topOfStack element...
+            data[topOfStack] = null; // set it to null...
+            topOfStack--; // make the new topOfStack the previous element...
+            return temp; // and return the saved element.
         }
     }
 
     @Override
     public T peek() {
+        //throw and exception if the array is empty
         if (isEmpty()) {
             throw new EmptyStackException("Array is empty.");
         }
@@ -64,8 +70,8 @@ public class ArrayBasedStack<T> implements StackInterface<T> {
     @Override
     public void clear() {
         @SuppressWarnings("unchecked")
-        T[] tempStack = (T[])new Object[INITIAL_CAPACITY];
-        data = tempStack;
-        topOfStack = -1;
+        T[] tempStack = (T[])new Object[INITIAL_CAPACITY]; //Create a new array of initial capacity...
+        data = tempStack; //and set the data array to the temp array
+        topOfStack = -1; //Return the topOfStack back to before the beginning of the array
     }
 }
