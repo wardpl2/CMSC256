@@ -8,12 +8,10 @@ public class ArrayBasedStackTest {
 
 	ArrayBasedStack<String> stack;
 	private String n1,n2,n3;
-	
-	/**
-	 * @throws java.lang.Exception
-	 */
+
+
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		stack = new ArrayBasedStack<>();
 		n1 = "Able";
 		n2 = "Baker";
@@ -63,7 +61,7 @@ public class ArrayBasedStackTest {
 	public final void testPush4() {
 		pushAllElements();
 		stack.push(null);
-		assertEquals(null, stack.peek());
+		assertNull(stack.peek());
 	}
 
 	/**
