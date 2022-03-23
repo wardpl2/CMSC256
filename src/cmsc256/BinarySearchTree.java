@@ -54,14 +54,14 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
         if (root == null) {
             return false;
         }
+
         if (root.value.compareTo(removeValue) == 0) {
             if (root.left == null) {
                 root = root.right;
             }
             else if (root.right == null) {
                 root = root.left;
-            }
-            else {
+            } else {
                 BinaryNode formerRight = root.right;
                 root = root.left;
                 addToParent(root, formerRight);
@@ -79,9 +79,9 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
         BinaryNode subTree = null;
 
         if (compareParent > 0) {
-            subTree = parent.right;
-        } else {
             subTree = parent.left;
+        } else {
+            subTree = parent.right;
         }
 
         if (subTree == null) {
@@ -102,10 +102,10 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
             }
 
             if (compareParent > 0) {
-                parent.right = replacement;
+                parent.left = replacement;
             }
             else {
-                parent.left = replacement;
+                parent.right = replacement;
             }
 
             size--;
