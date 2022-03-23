@@ -78,9 +78,9 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 
         BinaryNode subTree = null;
 
-        if (compareParent > 0) {
+        if (compareParent > 0) {    //if parent is > what you're looking for, go left
             subTree = parent.left;
-        } else {
+        } else {                    // otherwise, go right
             subTree = parent.right;
         }
 
