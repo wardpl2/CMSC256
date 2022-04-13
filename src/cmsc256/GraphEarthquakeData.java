@@ -41,8 +41,7 @@ public class GraphEarthquakeData {
 				* Math.sin(loDistance / 2) * Math.sin(loDistance / 2);
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-		double distance = radius * c;    //convert to km
-		return distance;
+	  return radius * c;
 	}
 
 
@@ -69,7 +68,7 @@ public class GraphEarthquakeData {
 	  eq_list.sort(new MagnitudeComparator());
 
 	  List<EarthquakeUSGS> listOfTen = new ArrayList<>();
-	  for (int i = 0; i < 10; i++) {
+	  for (int i = 0; i < 100; i++) {
 		  listOfTen.add(eq_list.get(i));
 	  }
 
@@ -82,8 +81,8 @@ public class GraphEarthquakeData {
     */
 
 	  for (EarthquakeUSGS eq : listOfTen) {
-		  graph.addVertex(eq.getTitle(), eq.getTitle());
-		  graph.getVisualizer(eq.getTitle()).setLocation(eq.getLongit(),eq.getLatit());
+		  graph.addVertex(eq.getTitle(), String.valueOf(eq.getMagnitude()));
+		  graph.getVisualizer(eq.getTitle()).setLocation(eq.getLongit(), eq.getLatit());
 		  graph.getVisualizer(eq.getTitle()).setSize(1);
 	  }
 
@@ -104,7 +103,15 @@ public class GraphEarthquakeData {
     *                eq2.getLatit(), eq2.getLongit());
     * which returns a double representing the distance of two points in km
     */
-
+	  for (int i = 0; i < 10; i++) {
+		  EarthquakeUSGS eq1 = listOfTen.get(i);
+		  for (int j = i+1; j < listOfTen.size()-i-1; j++) {
+			  EarthquakeUSGS eq2 = listOfTen.get(j);
+			  if (calcDistance(eq1.getLatit(), eq1.getLongit(), eq2.getLatit(), eq2.getLongit()) <= 500) {
+				  graph.addEdge(eq1.getTitle(), eq2.getTitle());
+			  }
+		  }
+	  }
 
 
     bridges.visualize();
@@ -115,6 +122,10 @@ public class GraphEarthquakeData {
     *
     * ex: graph.getVisualizer(key).setLocation(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY)
     */
+
+	  for (EarthquakeUSGS eq : listOfTen) {
+		  graph.getVisualizer(eq.getTitle()).setLocation(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+	  }
 
     bridges.setMapOverlay(false);
     bridges.visualize();
