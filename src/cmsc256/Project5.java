@@ -5,10 +5,19 @@ import bridges.connect.Bridges;
 
 import java.util.Stack;
 
-
+/**
+ *  CMSC 256
+ *  Project 5
+ *  Ward, Preston
+ *
+ *  Project 5 takes a math equation, puts it into a traversal tree, reads that tree, and evaluates the math equation
+ */
 public class Project5 {
 
     public static bridges.base.BinTreeElement<String> buildParseTree(String expression) {
+        if (expression == null || expression.length() == 0) {
+            throw new IllegalArgumentException("Expression cannot be null.");
+        }
         BinTreeElement<String> parseTree = new BinTreeElement<>("root","");
         BinTreeElement<String> current = parseTree;
         Stack<BinTreeElement<String>> treeElements = new Stack<>();
@@ -16,8 +25,7 @@ public class Project5 {
 
         for (String token: tokens) {
             switch (token) {
-                case "(":
-                    //do something
+                case "(": //do something
                     current.setLeft(new BinTreeElement<>("temp", ""));
                     treeElements.push(current);
                     current = current.getLeft();
@@ -26,48 +34,77 @@ public class Project5 {
                 case "-":
                 case "/":
                 case "*":
-                case "%":
-                    //do something
+                case "%": //do something
                     current.setLabel(token);
                     current.setRight(new BinTreeElement<>("temp", ""));
                     treeElements.push(current);
                     current = current.getRight();
                     break;
-                case ")":
-                    //do something
+                case ")": //do something
                     if (!treeElements.isEmpty()) {
                         current = treeElements.pop();
                     }
                     break;
                 default:
-                    //do something
+                    try {
+                        double number = Double.parseDouble(token);
+                    } catch (Exception e) {
+                        throw new IllegalArgumentException("token must be a number");
+                    }
                     current.setLabel(token);
-                    current = treeElements.pop();
+                    if (!treeElements.isEmpty()) {
+                        current = treeElements.pop();
+                    }
                     break;
             }
-
         }
-
         return parseTree;
     }
 
 
     public static double evaluate(bridges.base.BinTreeElement<String> tree) {
+        double left, right;
         if (tree == null) {
             return Double.NaN;
         }
+        if (tree.getLeft() == null && tree.getRight() == null) {
+            return Double.parseDouble(tree.getLabel());
+        }
+        left = evaluate(tree.getLeft());
+        right = evaluate(tree.getRight());
 
+        if (tree.getLabel().equals("+")) {
+            return left + right;
+        }
+        else if (tree.getLabel().equals("-")) {
+            return left - right;
+        }
+        else if (tree.getLabel().equals("*")) {
+            return left * right;
+        }
+        else if (tree.getLabel().equals("/")) {
+            if (right == 0) {
+                throw new ArithmeticException("cannot devide by 0");
+            }
+            return left / right;
+        }
 
-
-        return 0;
+        return Double.NaN;
     }
 
 
     public static String getEquation(bridges.base.BinTreeElement<String> tree) {
+        String returnString = "";
+        if (tree.getLeft() == null && tree.getRight() == null) {
+            return tree.getLabel();
+        }
+        returnString += "( ";
+        returnString += getEquation(tree.getLeft());
+        returnString += " " + tree.getLabel() + " ";
+        returnString += getEquation(tree.getRight());
+        returnString += " )";
 
-
-
-        return null;
+        return returnString;
     }
 
     public static void main(String[] args){
