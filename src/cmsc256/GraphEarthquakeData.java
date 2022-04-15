@@ -7,6 +7,7 @@ import bridges.data_src_dependent.EarthquakeUSGS;
 import bridges.data_src_dependent.OsmVertex;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,10 +16,10 @@ public class GraphEarthquakeData {
 	static class MagnitudeComparator implements Comparator<EarthquakeUSGS> {
 		@Override
 		public int compare(EarthquakeUSGS E1, EarthquakeUSGS E2) {
-			if (E1.getMagnitude() > E2.getMagnitude()) {
+			if (E1.getMagnitude() < E2.getMagnitude()) {
 				return 1;
 			}
-			else if (E1.getMagnitude() < E2.getMagnitude()) {
+			else if (E1.getMagnitude() > E2.getMagnitude()) {
 				return -1;
 			}
 			else if (E1.getMagnitude() == E2.getMagnitude()) {
@@ -83,7 +84,16 @@ public class GraphEarthquakeData {
 	  for (EarthquakeUSGS eq : listOfTen) {
 		  graph.addVertex(eq.getTitle(), String.valueOf(eq.getMagnitude()));
 		  graph.getVisualizer(eq.getTitle()).setLocation(eq.getLongit(), eq.getLatit());
-		  graph.getVisualizer(eq.getTitle()).setSize(1);
+		  if (eq.getMagnitude() >= 6.5) {
+			  graph.getVisualizer(eq.getTitle()).setSize(2.5);
+			  graph.getVisualizer(eq.getTitle()).setColor("red");
+		  }
+		  else if (eq.getMagnitude() >= 5.5 && eq.getMagnitude() < 7) {
+			  graph.getVisualizer(eq.getTitle()).setSize(2);
+			  graph.getVisualizer(eq.getTitle()).setColor("orange");
+		  } else {
+			  graph.getVisualizer(eq.getTitle()).setSize(1);
+		  }
 	  }
 
 
