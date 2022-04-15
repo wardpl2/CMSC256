@@ -47,7 +47,7 @@ public class GraphEarthquakeData {
 
   public static void main(String[] args) throws Exception {
 	// Create a Bridges object
-	  Bridges bridges = new Bridges(3,"wardpl2","133617755398");
+	  Bridges bridges = new Bridges(4,"wardpl2","133617755398");
 
 	// Get a DataSource object from Bridges
 	  DataSource ds = bridges.getDataSource();
