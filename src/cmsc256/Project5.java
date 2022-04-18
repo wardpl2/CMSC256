@@ -25,7 +25,7 @@ public class Project5 {
 
         for (String token: tokens) {
             switch (token) {
-                case "(": //do something
+                case "(":   //do something
                     current.setLeft(new BinTreeElement<>("temp", ""));
                     treeElements.push(current);
                     current = current.getLeft();
@@ -34,13 +34,13 @@ public class Project5 {
                 case "-":
                 case "/":
                 case "*":
-                case "%": //do something
+                case "%":   //do something
                     current.setLabel(token);
                     current.setRight(new BinTreeElement<>("temp", ""));
                     treeElements.push(current);
                     current = current.getRight();
                     break;
-                case ")": //do something
+                case ")":   //do something
                     if (!treeElements.isEmpty()) {
                         current = treeElements.pop();
                     }
@@ -73,23 +73,20 @@ public class Project5 {
         left = evaluate(tree.getLeft());
         right = evaluate(tree.getRight());
 
-        if (tree.getLabel().equals("+")) {
-            return left + right;
+        switch (tree.getLabel()) {
+            case "+":
+                return left + right;
+            case "-":
+                return left - right;
+            case "*":
+                return left * right;
+            case "/":
+                if (right == 0) {
+                    throw new ArithmeticException("cannot devide by 0");
+                }
+                return left / right;
         }
-        else if (tree.getLabel().equals("-")) {
-            return left - right;
-        }
-        else if (tree.getLabel().equals("*")) {
-            return left * right;
-        }
-        else if (tree.getLabel().equals("/")) {
-            if (right == 0) {
-                throw new ArithmeticException("cannot devide by 0");
-            }
-            return left / right;
-        }
-
-        return Double.NaN;
+        return 0;
     }
 
 
