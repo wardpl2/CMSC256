@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TicTacToe extends JFrame implements ActionListener {
+    public record Pair(boolean key, String value) {}
+
     public JPanel grid;
     public boolean xTurn = true;
     public int turns = 0;
@@ -44,31 +46,31 @@ public class TicTacToe extends JFrame implements ActionListener {
     }
 
 
-    private Pair<Boolean, String> checkWinner(JPanel grid) {
+    private Pair checkWinner(JPanel grid) {
         for (int i = 0; i < 3; i++) {
             if ((!((JButton)grid.getComponent(i)).getText().equals("")) &&
                     ((JButton)grid.getComponent(i)).getText().equals(((JButton)grid.getComponent(i + 1)).getText()) &&
                     ((JButton)grid.getComponent(i + 1)).getText().equals(((JButton)grid.getComponent(i + 2)).getText())) {
-                return new Pair<>(true, ((JButton)grid.getComponent(i)).getText());
+                return new Pair(true, ((JButton) grid.getComponent(i)).getText());
             }
             if ((!((JButton)grid.getComponent(i)).getText().equals("")) &&
                     ((JButton)grid.getComponent(i)).getText().equals(((JButton)grid.getComponent(i + 3)).getText()) &&
                     ((JButton)grid.getComponent(i + 3)).getText().equals(((JButton)grid.getComponent(i + 6)).getText())) {
-                return new Pair<>(true, ((JButton)grid.getComponent(i)).getText());
+                return new Pair(true, ((JButton) grid.getComponent(i)).getText());
             }
         }
         if ((!((JButton)grid.getComponent(4)).getText().equals("")) &&
                 ((JButton)grid.getComponent(0)).getText().equals(((JButton)grid.getComponent(4)).getText()) &&
                 ((JButton)grid.getComponent(4)).getText().equals(((JButton)grid.getComponent(8)).getText())) {
-            return new Pair<>(true, ((JButton) grid.getComponent(4)).getText());
+            return new Pair(true, ((JButton) grid.getComponent(4)).getText());
         }
         if ((!((JButton)grid.getComponent(4)).getText().equals("")) &&
                 ((JButton)grid.getComponent(2)).getText().equals(((JButton)grid.getComponent(4)).getText()) &&
                 ((JButton)grid.getComponent(4)).getText().equals(((JButton)grid.getComponent(6)).getText())) {
-            return new Pair<>(true, ((JButton)grid.getComponent(4)).getText());
+            return new Pair(true, ((JButton) grid.getComponent(4)).getText());
         }
 
-        return new Pair<>(false,"");
+        return new Pair(false, "");
     }
 
 
@@ -83,29 +85,10 @@ public class TicTacToe extends JFrame implements ActionListener {
                 button.setText("O");
                 xTurn = true;
             }
-            result = checkWinner(grid).getKey();
-            winner = checkWinner(grid).getValue();
+            result = checkWinner(grid).key();
+            winner = checkWinner(grid).value();
             turns++;
         }
         System.out.println(result + " " + winner);
-    }
-
-
-    public class Pair<T, T1> {
-        private T key;
-        private T1 value;
-
-        public Pair(T key, T1 value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public T getKey() {
-            return key;
-        }
-
-        public T1 getValue() {
-            return value;
-        }
     }
 }
