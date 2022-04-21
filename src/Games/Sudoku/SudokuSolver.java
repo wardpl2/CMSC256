@@ -66,7 +66,7 @@ public class SudokuSolver {
      * @param board int[][] The sudoku board to be solved
      * @param row int The row to search through to see if num is present
      * @param num int The num to search for
-     * @return boolean Whether or not num is in the row in board
+     * @return boolean Whether num is in the row in board
      */
     public static boolean usedInRow(int[][] board, int row, int num) {
         for (int i = 0; i < board.length; i++) {
@@ -81,11 +81,11 @@ public class SudokuSolver {
      * @param board int[][] The sudoku board to be solved
      * @param col int The column to search through to se if num is present
      * @param num int The num to search for
-     * @return boolean Whether or not num is in the col in board
+     * @return boolean Whether num is in the col in board
      */
     public static boolean usedInCol(int[][] board, int col, int num) {
-        for (int i = 0; i < board.length; i++) {
-            if (board[i][col] == num) {
+        for (int[] ints : board) {
+            if (ints[col] == num) {
                 return true;
             }
         }
@@ -97,7 +97,7 @@ public class SudokuSolver {
      * @param row1Start int The startRow that will search it and the 2 rows associated with the grid
      * @param col1Start int The startCol that will search it and the 2 columns associated with the grid
      * @param num int The num to search for in the current 3x3 grid
-     * @return boolean Whether or not num is in the 3x3 grid in board
+     * @return boolean Whether num is in the 3x3 grid in board
      */
     public static boolean usedInBox(int[][] board, int row1Start, int col1Start, int num) {
         for (int row = 0; row < 3; row++) {
@@ -115,7 +115,7 @@ public class SudokuSolver {
      * @param row int The row to be searched
      * @param col int The column to be searched
      * @param num int The num that is being searched for
-     * @return boolean Whether or not num is in the current row, the current column, and the current 3x3 grid
+     * @return boolean Whether num is in the current row, the current column, and the current 3x3 grid
      */
     public static boolean isSafe(int[][] board, int row, int col, int num) {
         return (!usedInRow(board,row,num) && !usedInCol(board,col,num) && !usedInBox(board, row - row % 3, col - col % 3, num));
@@ -123,7 +123,7 @@ public class SudokuSolver {
 
     /**
      * @param board int[][] The sudoku board to be solved
-     * @return boolean Whether or not the board has been solved
+     * @return boolean Whether the board has been solved
      */
     public static boolean solver(int[][] board) {
         int[] returnArray = blankPosition(board);
