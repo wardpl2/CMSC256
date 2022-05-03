@@ -2,8 +2,10 @@ package Games.TicTacToe;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TicTacToe extends JFrame {
+public class TicTacToe extends JFrame implements ActionListener {
     public record Pair(boolean key, String value) {}
 
     public JPanel grid;
@@ -35,22 +37,7 @@ public class TicTacToe extends JFrame {
         grid.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         for (int i = 0; i < 9; i++) {
             JButton button = new JButton();
-            button.addActionListener(e -> {
-                JButton button1 = (JButton) e.getSource();
-                if (!(button1.getText().equals("X") || button1.getText().equals("O"))) {
-                    if (xTurn) {
-                        button1.setText("X");
-                        xTurn = false;
-                    } else {
-                        button1.setText("O");
-                        xTurn = true;
-                    }
-                    result = checkWinner(grid).key();
-                    winner = checkWinner(grid).value();
-                    turns++;
-                }
-                System.out.println(result + " " + winner);
-            });
+            button.addActionListener(this);
             grid.add(button);
         }
         window.add(grid);
@@ -84,5 +71,24 @@ public class TicTacToe extends JFrame {
         }
 
         return new Pair(false, "");
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton button = (JButton) e.getSource();
+        if (!(button.getText().equals("X") || button.getText().equals("O"))) {
+            if (xTurn) {
+                button.setText("X");
+                xTurn = false;
+            } else {
+                button.setText("O");
+                xTurn = true;
+            }
+            result = checkWinner(grid).key();
+            winner = checkWinner(grid).value();
+            turns++;
+        }
+        System.out.println(result + " " + winner);
     }
 }
